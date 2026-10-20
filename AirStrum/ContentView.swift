@@ -67,26 +67,36 @@ struct ContentView: View {
     }
 
     private func chordButton(_ chord: Chord) -> some View {
-        Button {
-            if selectedChord == chord { selectedChord = nil; session.releaseChord() }
-            else { selectedChord = chord; session.press(chord: chord) }
-        } label: {
-            VStack(alignment: .leading, spacing: 6) {
-                Text(chord.rawValue)
-                    .font(.system(size: 31, weight: .bold, design: .rounded))
-                Text(chord.subtitle)
-                    .font(.system(size: 12, weight: .medium, design: .rounded))
-                    .opacity(0.58)
-                Spacer()
-                Text(selectedChord == chord ? "HOLDING" : "TOUCH")
-                    .font(.system(size: 10, weight: .bold, design: .rounded))
-                    .tracking(1.2)
-            }
-            .foregroundStyle(selectedChord == chord ? Color(red: 0.035, green: 0.047, blue: 0.075) : .white)
-            .frame(maxWidth: .infinity, minHeight: 120, alignment: .leading)
-            .padding(18)
-            .background(selectedChord == chord ? Color(red: 0.45, green: 1, blue: 0.79) : .white.opacity(0.1), in: RoundedRectangle(cornerRadius: 20))
+        let label = VStack(alignment: .leading, spacing: 6) {
+            Text(chord.rawValue)
+                .font(.system(size: 31, weight: .bold, design: .rounded))
+            Text(chord.subtitle)
+                .font(.system(size: 12, weight: .medium, design: .rounded))
+                .opacity(0.58)
+            Spacer()
+            Text(selectedChord == chord ? "HOLDING" : "HOLD")
+                .font(.system(size: 10, weight: .bold, design: .rounded))
+                .tracking(1.2)
         }
-        .buttonStyle(.plain)
+        .foregroundStyle(selectedChord == chord ? Color(red: 0.035, green: 0.047, blue: 0.075) : .white)
+        .frame(maxWidth: .infinity, minHeight: 120, alignment: .leading)
+        .padding(18)
+        .background(selectedChord == chord ? Color(red: 0.45, green: 1, blue: 0.79) : .white.opacity(0.1), in: RoundedRectangle(cornerRadius: 20))
+
+        return label
+            .contentShape(RoundedRectangle(cornerRadius: 20))
+            .gesture(
+                DragGesture(minimumDistance: 0)
+                    .onChanged { _ in
+                        guard selectedChord != chord else { return }
+                        selectedChord = chord
+                        session.press(chord: chord)
+                    }
+                    .onEnded { _ in
+                        guard selectedChord == chord else { return }
+                        selectedChord = nil
+                        session.releaseChord()
+                    }
+            )
     }
 }
