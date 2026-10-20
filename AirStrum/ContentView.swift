@@ -1,102 +1,198 @@
 import SwiftUI
 
+private enum PhoneStyle {
+    static let navy = Color(red: 0.035, green: 0.047, blue: 0.075)
+    static let mint = Color(red: 0.45, green: 1, blue: 0.79)
+    static let text = Color.white
+    static let secondary = Color.white.opacity(0.78)
+    static let surface = Color.white.opacity(0.1)
+    static let warning = Color.orange
+    static let tight: CGFloat = 8
+    static let gap: CGFloat = 16
+    static let inset: CGFloat = 20
+    static let radius: CGFloat = 20
+    static let controlHeight: CGFloat = 64
+    static let padWidth: CGFloat = 72
+}
+
 struct ContentView: View {
     @EnvironmentObject private var session: AirStrumSession
-    @State private var selectedChord: Chord?
-
-    private let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     var body: some View {
-        ZStack {
-            Color(red: 0.035, green: 0.047, blue: 0.075).ignoresSafeArea()
+        ViewThatFits(in: .vertical) {
+            instrument
             ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
-                    header
-                    liveCard
-                    LazyVGrid(columns: columns, spacing: 14) {
-                        ForEach(Chord.allCases) { chord in
-                            chordButton(chord)
-                        }
-                    }
-                    Text("Hold a chord with your left hand. Strum with your Apple Watch.")
-                        .font(.footnote)
-                        .foregroundStyle(.white.opacity(0.56))
-                }
-                .padding(22)
+                instrument
             }
         }
+        .background(PhoneStyle.navy.ignoresSafeArea())
+        .foregroundStyle(PhoneStyle.text)
         .preferredColorScheme(.dark)
-    }
-
-    private var header: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text("AIRSTRUM")
-                .font(.system(size: 14, weight: .bold, design: .rounded))
-                .tracking(3)
-                .foregroundStyle(Color(red: 0.45, green: 1, blue: 0.79))
-            Text("Play the air.")
-                .font(.system(size: 38, weight: .bold, design: .rounded))
-                .foregroundStyle(.white)
-            Text("左手按和弦，右手扫弦。\nHold the chord. Strum the air.")
-                .font(.system(size: 15, weight: .medium, design: .rounded))
-                .foregroundStyle(.white.opacity(0.68))
+        .onChange(of: scenePhase) {
+            if scenePhase != .active { release() }
         }
+        .onDisappear { release() }
     }
 
-    private var liveCard: some View {
-        HStack(spacing: 14) {
-            Circle()
-                .fill(session.watchConnected ? Color(red: 0.45, green: 1, blue: 0.79) : .orange)
-                .frame(width: 10, height: 10)
-            VStack(alignment: .leading, spacing: 3) {
-                Text(session.watchConnected ? "WATCH READY" : "CONNECT APPLE WATCH")
-                    .font(.system(size: 12, weight: .bold, design: .rounded))
-                    .tracking(1.1)
-                    .foregroundStyle(.white)
-                Text(session.lastStrum.map { "\($0.direction == .down ? "DOWN" : "UP") · \(Int($0.velocity * 100))%" } ?? "Waiting for your first strum")
-                    .font(.system(size: 13, design: .rounded))
-                    .foregroundStyle(.white.opacity(0.58))
+    private var instrument: some View {
+        VStack(alignment: .leading, spacing: PhoneStyle.gap) {
+            VStack(alignment: .leading, spacing: PhoneStyle.tight) {
+                Text(verbatim: "AIRSTRUM")
+                    .font(.headline)
+                    .foregroundStyle(PhoneStyle.mint)
+                Text("Play the air.")
+                    .font(.largeTitle.bold())
+                Text("Hold a chord with your left hand. Strum with your Apple Watch.")
+                    .foregroundStyle(PhoneStyle.secondary)
+                status
             }
-            Spacer()
-            Text(session.heldChord?.rawValue ?? "—")
-                .font(.system(size: 28, weight: .bold, design: .rounded))
-                .foregroundStyle(Color(red: 0.45, green: 1, blue: 0.79))
+            chordControls
+            Text("Keep both apps open and active while playing.")
+                .font(.footnote)
+                .foregroundStyle(PhoneStyle.secondary)
         }
-        .padding(18)
-        .background(.white.opacity(0.08), in: RoundedRectangle(cornerRadius: 22))
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(PhoneStyle.inset)
+        .fixedSize(horizontal: false, vertical: true)
     }
 
-    private func chordButton(_ chord: Chord) -> some View {
-        let label = VStack(alignment: .leading, spacing: 6) {
-            Text(chord.rawValue)
-                .font(.system(size: 31, weight: .bold, design: .rounded))
-            Text(chord.subtitle)
-                .font(.system(size: 12, weight: .medium, design: .rounded))
-                .opacity(0.58)
-            Spacer()
-            Text(selectedChord == chord ? "HOLDING" : "HOLD")
-                .font(.system(size: 10, weight: .bold, design: .rounded))
-                .tracking(1.2)
+    private var status: some View {
+        VStack(alignment: .leading, spacing: PhoneStyle.tight) {
+            Label(LocalizedStringKey(session.watchConnected ? "Watch reachable" : "Watch not reachable"),
+                  systemImage: session.watchConnected ? "applewatch" : "applewatch.slash")
+                .font(.headline)
+            if !session.watchConnected {
+                Text("Open AirStrum on your paired Apple Watch.")
+            }
+            Label(LocalizedStringKey(session.isAudioReady ? "Audio ready" : "Audio unavailable"),
+                  systemImage: session.isAudioReady ? "speaker.wave.2" : "speaker.slash")
+            if !session.isAudioReady {
+                Text("Close and reopen AirStrum to try audio again.")
+                    .foregroundStyle(PhoneStyle.warning)
+            }
+            if let error = session.communicationError {
+                Text("Watch communication problem. Keep both apps open and check the connection.")
+                    .foregroundStyle(PhoneStyle.warning)
+                Text(verbatim: error)
+                    .font(.footnote)
+            }
+            if let strum = session.lastStrum {
+                Text(LocalizedStringKey(strum.direction == .down ? "Last received: down strum" : "Last received: up strum"))
+                    .foregroundStyle(PhoneStyle.secondary)
+            } else {
+                Text("Waiting for your first strum")
+                    .foregroundStyle(PhoneStyle.secondary)
+            }
         }
-        .foregroundStyle(selectedChord == chord ? Color(red: 0.035, green: 0.047, blue: 0.075) : .white)
-        .frame(maxWidth: .infinity, minHeight: 120, alignment: .leading)
-        .padding(18)
-        .background(selectedChord == chord ? Color(red: 0.45, green: 1, blue: 0.79) : .white.opacity(0.1), in: RoundedRectangle(cornerRadius: 20))
+        .font(.subheadline)
+        .fixedSize(horizontal: false, vertical: true)
+        .padding(PhoneStyle.gap)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(PhoneStyle.surface, in: RoundedRectangle(cornerRadius: PhoneStyle.radius))
+    }
 
-        return label
-            .contentShape(RoundedRectangle(cornerRadius: 20))
-            .gesture(
-                DragGesture(minimumDistance: 0)
-                    .onChanged { _ in
-                        guard selectedChord != chord else { return }
-                        selectedChord = chord
-                        session.press(chord: chord)
-                    }
-                    .onEnded { _ in
-                        guard selectedChord == chord else { return }
-                        selectedChord = nil
-                        session.releaseChord()
-                    }
-            )
+    private var chordControls: some View {
+        VStack(spacing: PhoneStyle.tight) {
+            Text(LocalizedStringKey(session.heldChord == nil ? "Hold to play" : "Holding · lift to release"))
+                .font(.headline)
+                .foregroundStyle(PhoneStyle.secondary)
+            LazyVGrid(columns: [GridItem(
+                dynamicTypeSize.isAccessibilitySize ? .flexible() : .adaptive(minimum: PhoneStyle.padWidth),
+                spacing: PhoneStyle.tight
+            )], spacing: PhoneStyle.tight) {
+                ForEach(Chord.allCases) { chord in
+                    ChordPad(
+                        chord: chord,
+                        name: chordName(chord),
+                        isHeld: session.heldChord == chord,
+                        isEnabled: session.isAudioReady,
+                        press: { press(chord) },
+                        release: {
+                            if session.heldChord == chord { release() }
+                        }
+                    )
+                }
+            }
+            Button("Release chord", action: release)
+                .font(.headline)
+                .buttonStyle(.bordered)
+                .tint(PhoneStyle.mint)
+                .disabled(session.heldChord == nil)
+        }
+    }
+
+    private func press(_ chord: Chord) {
+        guard scenePhase == .active, session.isAudioReady, session.heldChord != chord else { return }
+        session.press(chord: chord)
+    }
+
+    private func release() {
+        guard session.heldChord != nil else { return }
+        session.releaseChord()
+    }
+
+    private func chordName(_ chord: Chord) -> LocalizedStringKey {
+        switch chord {
+        case .em: "E minor"
+        case .g7: "G dominant 7"
+        case .c: "C major"
+        case .d: "D major"
+        case .am: "A minor"
+        case .a: "A major"
+        case .e: "E major"
+        case .dm: "D minor"
+        }
+    }
+}
+
+private struct ChordPad: View {
+    let chord: Chord
+    let name: LocalizedStringKey
+    let isHeld: Bool
+    let isEnabled: Bool
+    let press: () -> Void
+    let release: () -> Void
+
+    @GestureState private var touching = false
+    @ScaledMetric(relativeTo: .title2) private var padHeight = PhoneStyle.controlHeight
+
+    var body: some View {
+        Text(verbatim: chord.rawValue)
+            .font(.title2.bold())
+            .frame(maxWidth: .infinity, minHeight: padHeight)
+            .foregroundStyle(isHeld ? PhoneStyle.navy : (isEnabled ? PhoneStyle.mint : PhoneStyle.secondary))
+            .background(isHeld ? PhoneStyle.mint : PhoneStyle.surface,
+                        in: RoundedRectangle(cornerRadius: PhoneStyle.radius))
+            .overlay {
+                GeometryReader { geometry in
+                    Color.clear
+                        .contentShape(RoundedRectangle(cornerRadius: PhoneStyle.radius))
+                        .gesture(
+                            DragGesture(minimumDistance: 0)
+                                .updating($touching) { value, touching, _ in
+                                    touching = CGRect(origin: .zero, size: geometry.size).contains(value.location)
+                                }
+                                .onEnded { _ in release() }
+                        )
+                }
+            }
+            .onChange(of: touching) { _, touching in
+                if touching && isEnabled { press() } else { release() }
+            }
+            .onDisappear { release() }
+            .accessibilityRepresentation {
+                Button {
+                    isHeld ? release() : press()
+                } label: {
+                    Text(name)
+                }
+                .accessibilityValue(isHeld ? Text("Holding") : Text("Released"))
+                .accessibilityHint("Activate to hold or release. You can also use the Press chord and Release chord actions.")
+                .accessibilityAction(named: Text("Press chord")) { press() }
+                .accessibilityAction(named: Text("Release chord")) { release() }
+                .disabled(!isEnabled)
+            }
     }
 }
