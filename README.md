@@ -1,8 +1,11 @@
 # AirStrum
 
+![AirStrum — Play the air / 弹奏空气](Brand/banner.png)
+
 > **Play the air. / 弹奏空气。**
 
 AirStrum is a native Swift iPhone + Apple Watch instrument. Hold a chord on
+your iPhone with one hand and strum with the Watch on the other wrist.
 It is designed for immediate, playful sound rather than a traditional guitar
 simulator.
 
@@ -29,20 +32,27 @@ Watch 上调试；模拟器无法验证真实扫弦体验。
 ## Interaction / 交互
 
 1. Install and open AirStrum on iPhone and Apple Watch.
-2. Allow motion and audio permissions.
+2. Allow motion access if requested; audio playback does not require microphone access.
 3. Keep a chord button pressed on iPhone.
 4. Tap **STRUM** on the Watch to begin motion detection.
 5. Strum down or up with the Watch hand.
 6. Release the chord button to fade the current chord out.
 
 1. 在 iPhone 与 Apple Watch 上安装并打开 AirStrum。
-2. 允许动作与音频权限。
+2. 按提示允许动作访问；音频播放不需要麦克风权限。
 3. 在 iPhone 上按住一个和弦按钮。
 4. 在手表上点击 **STRUM** 开始动作识别。
 5. 佩戴手表的手向下或向上扫动。
 6. 松开 iPhone 和弦按钮，让当前和弦衰减消失。
 
 ## Build / 构建
+
+Requirements: iOS 17+, watchOS 10+, a paired iPhone/Watch, and Xcode with the
+Apple license accepted and the relevant SDKs installed. The checked-in project
+can be opened directly; XcodeGen is needed only to regenerate its configuration.
+
+要求：iOS 17+、watchOS 10+、配对的 iPhone/Watch，以及已接受 Apple 许可、安装
+对应 SDK 的 Xcode。可直接打开仓库中的工程，仅重新生成工程配置时需要 XcodeGen。
 
 The repository uses XcodeGen to keep the project definition readable.
 
@@ -88,3 +98,34 @@ state and audio output. No network service is required.
 Personal prototype. Add a project-specific license before public distribution.
 
 个人原型项目。如需公开分发，请先补充项目专用许可证。
+
+## Verification and limits / 验证与限制
+
+Run from the repository root on macOS with the installed Swift compiler and SDKs:
+
+在安装了 Swift 编译器和 SDK 的 macOS 上，从仓库根目录运行：
+
+```bash
+bash Scripts/check-audio.sh
+bash Scripts/check-connectivity.sh
+```
+
+Audio checks render the production engine offline on macOS, excluding iOS-only
+audio-session setup. Connectivity checks use explicit hardware mocks. Neither
+proves paired-device latency, reliable wrist direction, background execution,
+or listening quality. Keep both apps active while evaluating the instrument;
+the Watch does not play audio and does not have an audio-background entitlement.
+Bluetooth headphone output may add latency; compare with the iPhone speaker or
+a wired output when measuring responsiveness.
+
+音频检查在 macOS 离线渲染实际引擎，不包含 iOS 专属音频会话配置。连接检查使用
+明确的硬件模拟。两者均不能证明配对真机延迟、手腕方向准确性、后台运行或听感。
+评估时请保持双端应用活跃；手表不播放音频，也不以后台音频模式保活。蓝牙耳机
+可能增加输出延迟，测量跟手感时请与手机扬声器或有线输出对比。
+
+The project-local SwiftUI guidance is installed under
+`.agents/skills/swiftui-expert-skill` from
+[AvdLee/SwiftUI-Agent-Skill](https://github.com/AvdLee/SwiftUI-Agent-Skill).
+Its guidance does not replace device testing.
+
+已安装项目级原生 SwiftUI 指导 skill，路径和来源如上；它不能替代真机测试。
