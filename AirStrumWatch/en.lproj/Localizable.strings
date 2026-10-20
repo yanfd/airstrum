@@ -1,0 +1,13 @@
+"Stop detecting" = "Stop detecting";
+"Start detecting" = "Start detecting";
+"Motion detection active" = "Motion detection active";
+"Motion detection stopped" = "Motion detection stopped";
+"Last chord received: %@" = "Last chord received: %@";
+"No chord received. Hold a chord on iPhone." = "No chord received. Hold a chord on iPhone.";
+"Last detected: down strum" = "Last detected: down strum";
+"Last detected: up strum" = "Last detected: up strum";
+"Waiting for a wrist strum" = "Waiting for a wrist strum";
+"Detection does not confirm playback on iPhone." = "Detection does not confirm playback on iPhone.";
+"Motion unavailable. Stop and start detection to try again." = "Motion unavailable. Stop and start detection to try again.";
+"iPhone communication problem. Open AirStrum on your paired iPhone and check the connection." = "iPhone communication problem. Open AirStrum on your paired iPhone and check the connection.";
+"Keep this app active and AirStrum open on iPhone. Detection stops when this app becomes inactive." = "Keep this app active and AirStrum open on iPhone. Detection stops when this app becomes inactive.";

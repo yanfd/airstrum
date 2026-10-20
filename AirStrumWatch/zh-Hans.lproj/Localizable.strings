@@ -1,0 +1,13 @@
+"Stop detecting" = "停止检测";
+"Start detecting" = "开始检测";
+"Motion detection active" = "正在检测动作";
+"Motion detection stopped" = "动作检测已停止";
+"Last chord received: %@" = "上次收到的和弦：%@";
+"No chord received. Hold a chord on iPhone." = "尚未收到和弦。请在 iPhone 上按住和弦。";
+"Last detected: down strum" = "上次检测到：向下扫弦";
+"Last detected: up strum" = "上次检测到：向上扫弦";
+"Waiting for a wrist strum" = "等待挥动手腕扫弦";
+"Detection does not confirm playback on iPhone." = "检测到动作不代表 iPhone 已播放声音。";
+"Motion unavailable. Stop and start detection to try again." = "动作检测不可用。请停止后重新开始检测以重试。";
+"iPhone communication problem. Open AirStrum on your paired iPhone and check the connection." = "iPhone 通信出现问题。请在已配对的 iPhone 上打开 AirStrum，并检查连接。";
+"Keep this app active and AirStrum open on iPhone. Detection stops when this app becomes inactive." = "请让此应用保持在前台运行，并在 iPhone 上打开 AirStrum。此应用不在前台时会停止检测。";
