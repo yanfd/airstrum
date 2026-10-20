@@ -70,11 +70,12 @@ final class CMMotionManager {
     static let contract = """
     Production controllers run unchanged with CONNECTIVITY_CHECKS hardware mocks.
     Phone publishes a versioned generation/chord context before performance. Watch requests
-    context only on connection activation/reconnect, then sends each gesture once, without replies.
+    context on connection activation/reconnect or explicit detection start when context is absent,
+    then sends each gesture once, without replies. Valid context survives detection restarts.
     Phone accepts only the active held chord/token/receiver and an increasing sequence.
     A single high-water integer bounds dedup storage; reordered older events are discarded too.
     Chord/release and observed phone transitions rotate tokens. Watch transitions invalidate its
-    receiver ID so cached pre-reconnect contexts cannot arm it. No offline queue or retry exists.
+    receiver ID so cached pre-reconnect contexts cannot arm it. No offline queue or automatic retry exists.
     Context synchronization can drop the earliest stroke after a chord change or reconnect.
     Unsynchronized wall timestamps are metadata, not age checks. An unseen brief outage or delayed
     packet in the same active context may pass: there is no cross-device bounded-age guarantee.
@@ -85,8 +86,64 @@ final class CMMotionManager {
 
     @MainActor static func drain() async throws { try await Task.sleep(nanoseconds: 30_000_000) }
 
+    @MainActor static func checkContextRecoveryOnStart() async throws {
+        let phoneLink = WCSession()
+        WCSession.default = phoneLink
+        let phone = AirStrumSession()
+        phone.press(chord: .c)
+        let watchLink = WCSession()
+        WCSession.default = watchLink
+        let watch = WatchMotionController()
+        let motion = CMMotionManager.latest!
+        phoneLink.route = { watch.session(watchLink, didReceiveMessage: $0) }
+        watchLink.route = { phone.session(phoneLink, didReceiveMessage: $0) }
+        watchLink.failSend = true
+        watch.session(watchLink, activationDidCompleteWith: .activated, error: nil)
+        try await drain()
+        precondition(watchLink.requests == 1 && watchLink.sent.isEmpty)
+        precondition(watch.currentChord == nil && watch.communicationError?.contains("sync chord") == true)
+        watch.toggle()
+        try await drain()
+        precondition(watchLink.requests == 2, "Start must request missing context even while reachability stays true")
+        motion.callback?(CMDeviceMotion(0), nil)
+        try await drain()
+        motion.callback?(CMDeviceMotion(0.3), nil)
+        try await drain()
+        precondition(watchLink.requests == 2, "Failed sync must not trigger per-strum or automatic retries")
+        watch.toggle()
+        watchLink.failSend = false
+        watch.toggle()
+        try await drain()
+        try await drain()
+        precondition(phoneLink.isReachable && watchLink.isReachable)
+        precondition(watchLink.requests == 3 && watch.currentChord == "C" && watch.communicationError == nil)
+        let recoveredContext = phoneLink.context
+        watch.toggle()
+        watch.toggle()
+        try await drain()
+        precondition(watchLink.requests == 3, "Restart must preserve valid context without another handshake")
+        motion.callback?(CMDeviceMotion(0), nil)
+        try await drain()
+        motion.callback?(CMDeviceMotion(0.3), nil)
+        try await drain()
+        try await drain()
+        precondition(watchLink.requests == 4 && watchLink.sent.last?["type"] as? String == "strum")
+        precondition(phoneLink.context["generation"] as? String == recoveredContext["generation"] as? String)
+        precondition(ChordAudioEngine.velocities.count == 1, "Recovered context must permit single-hop audio")
+        phone.releaseChord()
+        try await drain()
+        watch.toggle()
+        watch.toggle()
+        try await drain()
+        precondition(watch.currentChord == nil && watchLink.requests == 4, "Released chord is valid context, not missing context")
+        watch.toggle()
+        ChordAudioEngine.velocities = []
+        print("PASS: failed initial context request recovers on Start/restart without reconnect or automatic/per-strum retry")
+    }
+
     @MainActor static func main() async throws {
         print(contract)
+        try await checkContextRecoveryOnStart()
         let phoneLink = WCSession()
         phoneLink.isReachable = false
         WCSession.default = phoneLink
@@ -100,6 +157,7 @@ final class CMMotionManager {
         phone.press(chord: .em)
 
         let watchLink = WCSession()
+        watchLink.isReachable = false
         WCSession.default = watchLink
         let watch = WatchMotionController()
         let motion = CMMotionManager.latest!
@@ -133,6 +191,7 @@ final class CMMotionManager {
         try await emit(0.3)
         precondition(watchLink.sent.isEmpty, "No compatible context, no gesture send")
         phoneLink.isReachable = true
+        watchLink.isReachable = true
         phone.sessionReachabilityDidChange(phoneLink)
         watch.session(watchLink, activationDidCompleteWith: .activated, error: nil)
         try await drain()

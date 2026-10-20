@@ -43,6 +43,7 @@ final class WatchMotionController: NSObject, ObservableObject {
             motionError = "Device motion is not available."
             return
         }
+        refreshChordContext(recoverMissingContext: true)
         resetDetector()
         motionError = nil
         motionGeneration = UUID()
@@ -168,7 +169,7 @@ final class WatchMotionController: NSObject, ObservableObject {
         contextRevision = -1
     }
 
-    private func refreshChordContext() {
+    private func refreshChordContext(recoverMissingContext: Bool = false) {
         let reachable = connectivity.activationState == .activated && connectivity.isReachable
         guard reachable else {
             wasReachable = false
@@ -176,7 +177,7 @@ final class WatchMotionController: NSObject, ObservableObject {
             communicationError = "iPhone is not reachable."
             return
         }
-        guard !wasReachable else { return }
+        guard !wasReachable || (recoverMissingContext && strumGeneration == nil) else { return }
         wasReachable = true
         invalidateContext()
         connectivity.sendMessage([
