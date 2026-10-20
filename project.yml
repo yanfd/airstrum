@@ -16,27 +16,27 @@ targets:
       - path: Resources
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.yanfd.airstrum
+      GENERATE_INFOPLIST_FILE: YES
       INFOPLIST_KEY_CFBundleDisplayName: AirStrum
-      INFOPLIST_KEY_NSMicrophoneUsageDescription: AirStrum uses audio output to play your chord strums.
       SWIFT_VERSION: 5.0
     dependencies:
       - target: AirStrumWatch
         embed: true
   AirStrumWatch:
-    type: application.watchapp2
+    type: application
     platform: watchOS
     sources:
       - path: AirStrumWatch
       - path: Shared
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.yanfd.airstrum.watchkitapp
+      GENERATE_INFOPLIST_FILE: YES
       INFOPLIST_KEY_CFBundleDisplayName: AirStrum Watch
       SWIFT_VERSION: 5.0
-      INFOPLIST_KEY_WKCompanionAppBundleIdentifier: com.yanfd.airstrum
-      INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp: YES
     info:
       path: AirStrumWatch/Info.plist
       properties:
-        WKBackgroundModes:
-          - audio
+        WKApplication: true
+        WKCompanionAppBundleIdentifier: com.yanfd.airstrum
+        WKRunsIndependentlyOfCompanionApp: false
         NSMotionUsageDescription: AirStrum uses wrist motion to detect your strumming.

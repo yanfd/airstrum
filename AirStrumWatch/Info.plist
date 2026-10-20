@@ -20,9 +20,11 @@
 	<string>1</string>
 	<key>NSMotionUsageDescription</key>
 	<string>AirStrum uses wrist motion to detect your strumming.</string>
-	<key>WKBackgroundModes</key>
-	<array>
-		<string>audio</string>
-	</array>
+	<key>WKApplication</key>
+	<true/>
+	<key>WKCompanionAppBundleIdentifier</key>
+	<string>com.yanfd.airstrum</string>
+	<key>WKRunsIndependentlyOfCompanionApp</key>
+	<false/>
 </dict>
 </plist>

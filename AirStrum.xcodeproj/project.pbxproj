@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09CAC685F529A52FEC1CD3F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0E42ACF7BB35C5E37D62712 /* Assets.xcassets */; };
 		310A2B67206277E068E2D996 /* ChordAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59528369F661F81E4359D5B2 /* ChordAudioEngine.swift */; };
 		3D72980B48BDA0273088F848 /* AirStrumApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B75DF6E92C2744B956BB2B6 /* AirStrumApp.swift */; };
 		736A5133FAB0498FC926F961 /* Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B69CC0434638E66EB04AC73 /* Chord.swift */; };
@@ -14,10 +15,13 @@
 		7F5022CE88A2FA93E5711C35 /* WatchMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2EDAC9440BFF3E2E3760073 /* WatchMessage.swift */; };
 		81A33106646B5EE966092E72 /* AirStrumWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 2D8161D1BF9F9795A0BC9EC2 /* AirStrumWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		89671DF29D0CA24ABAFC8B77 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F1DB89FA2E3910C243F12A /* ContentView.swift */; };
+		926037B2B1121CC2764B87C2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E170CA935FE57544C8D764C1 /* Localizable.strings */; };
 		A19B8641E7959856D9FA0219 /* WatchMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2EDAC9440BFF3E2E3760073 /* WatchMessage.swift */; };
 		B3B11DB30CD4FF00A6CE4953 /* AirStrumWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73A7F74C8460A4AE474F146 /* AirStrumWatchApp.swift */; };
 		BB4080D260CBEDBA1F4533CA /* WatchContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CFFAFBADB02F99CA80C125E /* WatchContentView.swift */; };
+		C75972EE4F0CC62B72F7CDD5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7F4E799E026A604324EA38F8 /* Localizable.strings */; };
 		CBE30C19299CC0CAD405D2BD /* Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B69CC0434638E66EB04AC73 /* Chord.swift */; };
+		E43510431CD2E2CCD8D6A56B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCDDD9B0ED2A7DAC7BEBB648 /* Assets.xcassets */; };
 		F7C1C1E92E5C21DCFAF74439 /* AirStrumSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A789105FFDD5F23F95AA565F /* AirStrumSession.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,18 +50,24 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		00FC14BC7A7A8F82C9DA7A1B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		07C5B4F983F2AF3B805D577F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		1AFA0BBC04635FC7963E906B /* AirStrum.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = AirStrum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24F1DB89FA2E3910C243F12A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2D8161D1BF9F9795A0BC9EC2 /* AirStrumWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirStrumWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		392B9BB46B6A59682D493717 /* WatchMotionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchMotionController.swift; sourceTree = "<group>"; };
 		4B69CC0434638E66EB04AC73 /* Chord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chord.swift; sourceTree = "<group>"; };
 		59528369F661F81E4359D5B2 /* ChordAudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordAudioEngine.swift; sourceTree = "<group>"; };
+		5A2C6F247EE286B33C2D6EE1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6B75DF6E92C2744B956BB2B6 /* AirStrumApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirStrumApp.swift; sourceTree = "<group>"; };
+		81A3CB42868AB84787FA8F2D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9CFFAFBADB02F99CA80C125E /* WatchContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchContentView.swift; sourceTree = "<group>"; };
 		A73A7F74C8460A4AE474F146 /* AirStrumWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirStrumWatchApp.swift; sourceTree = "<group>"; };
 		A789105FFDD5F23F95AA565F /* AirStrumSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirStrumSession.swift; sourceTree = "<group>"; };
 		AF5609415ECA6E2352F86E00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B2EDAC9440BFF3E2E3760073 /* WatchMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchMessage.swift; sourceTree = "<group>"; };
+		C0E42ACF7BB35C5E37D62712 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FCDDD9B0ED2A7DAC7BEBB648 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -84,9 +94,11 @@
 			isa = PBXGroup;
 			children = (
 				A73A7F74C8460A4AE474F146 /* AirStrumWatchApp.swift */,
+				C0E42ACF7BB35C5E37D62712 /* Assets.xcassets */,
 				AF5609415ECA6E2352F86E00 /* Info.plist */,
 				9CFFAFBADB02F99CA80C125E /* WatchContentView.swift */,
 				392B9BB46B6A59682D493717 /* WatchMotionController.swift */,
+				E170CA935FE57544C8D764C1 /* Localizable.strings */,
 			);
 			path = AirStrumWatch;
 			sourceTree = "<group>";
@@ -96,8 +108,10 @@
 			children = (
 				6B75DF6E92C2744B956BB2B6 /* AirStrumApp.swift */,
 				A789105FFDD5F23F95AA565F /* AirStrumSession.swift */,
+				FCDDD9B0ED2A7DAC7BEBB648 /* Assets.xcassets */,
 				59528369F661F81E4359D5B2 /* ChordAudioEngine.swift */,
 				24F1DB89FA2E3910C243F12A /* ContentView.swift */,
+				7F4E799E026A604324EA38F8 /* Localizable.strings */,
 			);
 			path = AirStrum;
 			sourceTree = "<group>";
@@ -119,6 +133,7 @@
 			buildConfigurationList = 2EC8E7F31E219FD049FD4366 /* Build configuration list for PBXNativeTarget "AirStrum" */;
 			buildPhases = (
 				C5B4141C7C7F9BBBD3E43026 /* Sources */,
+				3DD87AA6BAE807A19538ED72 /* Resources */,
 				106344416CF032F7406D9780 /* Embed Watch Content */,
 			);
 			buildRules = (
@@ -138,6 +153,7 @@
 			buildConfigurationList = 5FAA55777F409920BA3E7FEA /* Build configuration list for PBXNativeTarget "AirStrumWatch" */;
 			buildPhases = (
 				F1922BDCBA74AD2568804C10 /* Sources */,
+				46A0AEC94F616C8D5CDCC2F1 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -148,7 +164,7 @@
 			);
 			productName = AirStrumWatch;
 			productReference = 2D8161D1BF9F9795A0BC9EC2 /* AirStrumWatch.app */;
-			productType = "com.apple.product-type.application.watchapp2";
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -167,6 +183,7 @@
 			knownRegions = (
 				Base,
 				en,
+				"zh-Hans",
 			);
 			mainGroup = 270283898A32266C9DD442C5;
 			minimizedProjectReferenceProxies = 1;
@@ -180,6 +197,27 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3DD87AA6BAE807A19538ED72 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E43510431CD2E2CCD8D6A56B /* Assets.xcassets in Resources */,
+				C75972EE4F0CC62B72F7CDD5 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		46A0AEC94F616C8D5CDCC2F1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09CAC685F529A52FEC1CD3F4 /* Assets.xcassets in Resources */,
+				926037B2B1121CC2764B87C2 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C5B4141C7C7F9BBBD3E43026 /* Sources */ = {
@@ -217,14 +255,35 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		7F4E799E026A604324EA38F8 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				81A3CB42868AB84787FA8F2D /* en */,
+				07C5B4F983F2AF3B805D577F /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		E170CA935FE57544C8D764C1 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5A2C6F247EE286B33C2D6EE1 /* en */,
+				00FC14BC7A7A8F82C9DA7A1B /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		8B8E7A1CE0F7211705CC1838 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AirStrumWatch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "AirStrum Watch";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.yanfd.airstrum;
-				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yanfd.airstrum.watchkitapp;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -238,8 +297,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = AirStrum;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "AirStrum uses audio output to play your chord strums.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -375,8 +434,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = AirStrum;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "AirStrum uses audio output to play your chord strums.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -391,10 +450,10 @@
 		F66A6C79057EFABC2D2C40A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AirStrumWatch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "AirStrum Watch";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.yanfd.airstrum;
-				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yanfd.airstrum.watchkitapp;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
