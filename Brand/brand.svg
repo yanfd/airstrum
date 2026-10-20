@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 720" role="img" aria-labelledby="title desc">
+  <title id="title">AirStrum</title>
+  <desc id="desc">AirStrum bilingual brand banner</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A0E19"/>
+      <stop offset="1" stop-color="#17253A"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#73FFCA"/>
+      <stop offset="1" stop-color="#B5F8FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="720" rx="48" fill="url(#bg)"/>
+  <circle cx="1260" cy="362" r="220" fill="none" stroke="#73FFCA" stroke-opacity=".16" stroke-width="2"/>
+  <circle cx="1260" cy="362" r="150" fill="none" stroke="#73FFCA" stroke-opacity=".28" stroke-width="2"/>
+  <path d="M1020 360 C1090 210 1170 510 1240 360 S1390 210 1500 360" fill="none" stroke="url(#line)" stroke-width="8" stroke-linecap="round"/>
+  <text x="120" y="270" fill="#73FFCA" font-family="SF Pro Display, Helvetica Neue, sans-serif" font-size="34" font-weight="700" letter-spacing="10">AIRSTRUM</text>
+  <text x="120" y="390" fill="#FFFFFF" font-family="SF Pro Display, Helvetica Neue, sans-serif" font-size="96" font-weight="700">Play the air.</text>
+  <text x="124" y="456" fill="#B7C2D4" font-family="PingFang SC, SF Pro Display, sans-serif" font-size="30">左手按和弦，右手扫弦</text>
+</svg>

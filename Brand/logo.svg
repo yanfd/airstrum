@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="AirStrum logo">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#73FFCA"/>
+      <stop offset="1" stop-color="#B5F8FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="128" fill="#0A0E19"/>
+  <path d="M104 280 C136 154 196 358 236 256 S330 154 408 250" fill="none" stroke="url(#g)" stroke-width="32" stroke-linecap="round"/>
+  <circle cx="144" cy="256" r="20" fill="#FFFFFF"/>
+  <circle cx="368" cy="256" r="20" fill="#FFFFFF"/>
+</svg>
