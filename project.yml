@@ -40,3 +40,14 @@ targets:
         WKCompanionAppBundleIdentifier: com.yanfd.airstrum
         WKRunsIndependentlyOfCompanionApp: false
         NSMotionUsageDescription: AirStrum uses wrist motion to detect your strumming.
+schemes:
+  AirStrum:
+    build:
+      targets:
+        AirStrum: all
+    run:
+      config: Debug
+  AirStrumWatch:
+    build:
+      targets:
+        AirStrumWatch: all
